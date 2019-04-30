@@ -1,0 +1,12 @@
+[submodule "thirdparty/imgui"]
+	path = thirdparty/imgui
+	url = https://github.com/Rachnus/imgui
+[submodule "thirdparty/glfw"]
+	path = thirdparty/glfw
+	url = https://github.com/Rachnus/glfw
+[submodule "thirdparty/glm"]
+	path = thirdparty/glm
+	url = https://github.com/Rachnus/glm
+[submodule "thirdparty/spdlog"]
+	path = thirdparty/spdlog
+	url = https://github.com/Rachnus/spdlog
