@@ -1,0 +1,3 @@
+*.vcxproj*
+thirdparty/glad/bin-int
+thirdparty/glad/bin
