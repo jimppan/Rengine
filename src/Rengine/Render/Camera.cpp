@@ -26,6 +26,7 @@ namespace Rengine
 		m_vecRotation.x = yaw;
 		m_vecRotation.y = pitch;
 		m_vecScale = { 1.0f, 1.0f, 0.0f };
+		m_bPixelPerfect = false;
 	}
 
 
@@ -66,9 +67,7 @@ namespace Rengine
 				m_CameraMatrix = glm::translate(m_ProjectionMatrix, translate);
 				m_CameraMatrix = glm::scale(glm::mat4(1.0f), scale) * m_CameraMatrix;
 
-				Vector2f bottomLeft = ScreenPosToWorldPos({ 0.0f, 0.0f });
-				Vector2f topRight = ScreenPosToWorldPos({ m_Window->GetWidth(), m_Window->GetHeight() });
-				m_WorldRect = { bottomLeft.x, bottomLeft.y, topRight.x, topRight.y };
+				m_WorldRect = GetWorldRect({ 0.0f, 0.0f }, { m_Window->GetWidth(), m_Window->GetHeight() });
 
 					break;
 				case ProjectionType::PERSPECTIVE:
@@ -80,6 +79,26 @@ namespace Rengine
 
 			m_bUpdateMatrix = false;
 		}
+	}
+
+	Rect Camera::GetWorldRect(Vector2f bottomLeft, Vector2f topRight)
+	{
+		Vector2f bottomLeftWorld = ScreenPosToWorldPos(bottomLeft);
+		Vector2f topRightWorld = ScreenPosToWorldPos(topRight);
+		return { bottomLeftWorld.x, bottomLeftWorld.y, topRightWorld.x - bottomLeftWorld.x, topRightWorld.y - bottomLeftWorld.y };
+	}
+
+	Rect Camera::GetWorldRect(Vector2f bottomLeft, Vector2f topRight, Vector2f originWorld)
+	{
+		Vector2f bottomLeftWorld = ScreenPosToWorldPos(bottomLeft, originWorld);
+		Vector2f topRightWorld = ScreenPosToWorldPos(topRight, originWorld);
+		return { bottomLeftWorld.x, bottomLeftWorld.y, topRightWorld.x - bottomLeftWorld.x, topRightWorld.y - bottomLeftWorld.y };
+	}
+
+	Vector2f Camera::GetCameraCenter()
+	{
+		Rect viewRect = GetViewRect();
+		return Vector2f(viewRect.z / (2.0f * m_vecScale.x), viewRect.w / (2.0f * m_vecScale.y));
 	}
 
 	Vector2f Camera::ScreenPosToWorldPos(Vector2f screenPos)
@@ -108,9 +127,35 @@ namespace Rengine
 		return screenPos;
 	}
 
+	Vector2f Camera::ScreenPosToWorldPos(Vector2f screenPos, Vector2f originWorld)
+	{
+		// 0 center
+		screenPos -= Vector2f(m_Window->GetWidth() / 2.0f, m_Window->GetHeight() / 2.0f);
+
+		// scale
+		if (m_bPixelPerfect)
+		{
+			screenPos.x /= glm::round(m_vecScale.x);
+			screenPos.y /= glm::round(m_vecScale.y);
+
+			// translate cam pos
+			screenPos += Vector2f(glm::round(originWorld.x), glm::round(originWorld.y));
+		}
+		else
+		{
+			screenPos.x /= m_vecScale.x;
+			screenPos.y /= m_vecScale.y;
+
+			// translate cam pos
+			screenPos += Vector2f(originWorld.x, originWorld.y);
+		}
+
+		return screenPos;
+	}
+
 	bool Camera::IsRectInView(const Rect& rect)
 	{
-		if (rect.x > m_WorldRect.z || rect.y > m_WorldRect.w)
+		if (rect.x > m_WorldRect.x + m_WorldRect.z || rect.y > m_WorldRect.y + m_WorldRect.w)
 			return false;
 
 		if (rect.x + rect.z < m_WorldRect.x || rect.y + rect.w < m_WorldRect.y)
@@ -124,20 +169,20 @@ namespace Rengine
 		m_bUpdateMatrix = needUpdate;
 	}
 
-	void Camera::Translate(Vector3f translation)
+	void Camera::Translate(const Vector3f& translation)
 	{
 		// Round cams position to prevent tile tearing (black lines between tiles)
 		m_vecPosition += translation;
 		m_bUpdateMatrix = true;
 	}
 
-	void Camera::Rotate(Vector3f rotation)
+	void Camera::Rotate(const Vector3f& rotation)
 	{
 		m_vecRotation += rotation;
 		m_bUpdateMatrix = true;
 	}
 
-	void Camera::Scale(Vector3f scale)
+	void Camera::Scale(const Vector3f& scale)
 	{
 		m_vecScale += scale;
 		m_bUpdateMatrix = true;

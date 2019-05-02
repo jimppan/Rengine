@@ -31,6 +31,7 @@ namespace Rengine
 		~Camera();
 
 		Vector2f    ScreenPosToWorldPos(Vector2f screenPos);
+		Vector2f    ScreenPosToWorldPos(Vector2f screenPos, Vector2f originWorld);
 
 		bool        IsRectInView(const Rect& rect);
 
@@ -38,9 +39,9 @@ namespace Rengine
 
 		void        SetNeedUpdate(bool needUpdate);
 
-		void        Translate(Vector3f translation) override;
-		void        Rotate(Vector3f rotation) override;
-		void        Scale(Vector3f scale) override;
+		void        Translate(const Vector3f& translation) override;
+		void        Rotate(const Vector3f& rotation) override;
+		void        Scale(const Vector3f& scale) override;
 
 		float       GetCameraFov();
 		void        SetCameraFov(float fov);
@@ -55,6 +56,11 @@ namespace Rengine
 		Matrix4f    GetProjectionMatrix() const;
 
 		inline Rect GetWorldRect() const { return m_WorldRect; }
+		Rect GetWorldRect(Vector2f bottomLeft, Vector2f topRight);
+		Rect GetWorldRect(Vector2f bottomLeft, Vector2f topRight, Vector2f originWorld);
+
+		Vector2f GetCameraCenter();
+
 		inline Rect GetViewRect() const { return m_ViewRect; }
 
 		inline void SetPixelPerfect(bool value) { m_bPixelPerfect = value; }

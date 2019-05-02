@@ -59,7 +59,7 @@ namespace Rengine
 	};
 
 	// Entry point for every application
-	Application* CreateApplication();
+	Application* CreateApplication(int arg, char** argv);
 }
 
 

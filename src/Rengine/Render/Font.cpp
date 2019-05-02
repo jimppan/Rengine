@@ -52,10 +52,10 @@ namespace Rengine
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 			RENGINE_WARN("LGYPHS: {0}, {1}, {2}, {3}", m_Face->size->face->bbox.xMin, m_Face->size->face->bbox.yMin, m_Face->size->face->bbox.xMax, m_Face->size->face->bbox.yMax);
 			
-			int tallestGlyph = 0;
-			int widestGlyph = 0;
-			int totalGlyphWidth = 0;
-			int divisor = desiredTexWidth;
+			unsigned int tallestGlyph = 0;
+			unsigned int widestGlyph = 0;
+			unsigned int totalGlyphWidth = 0;
+			unsigned int divisor = desiredTexWidth;
 
 			for (unsigned char c = 0; c < 128; c++)
 			{
@@ -73,11 +73,11 @@ namespace Rengine
 				totalGlyphWidth += m_Face->glyph->bitmap.width;
 			}
 
-			int texHeight = ((totalGlyphWidth / divisor) * tallestGlyph) + tallestGlyph;
-			int texWidth = desiredTexWidth;
+			unsigned int texHeight = ((totalGlyphWidth / divisor) * tallestGlyph) + tallestGlyph;
+			unsigned int texWidth = desiredTexWidth;
 	
 			Texture* texture = new Texture();
-			texture->Reserve(texWidth, texHeight, 1);
+			texture->Reserve((int)texWidth, (int)texHeight, 1);
 
 			for (unsigned char c = 0; c < 128; c++)
 			{
@@ -99,9 +99,9 @@ namespace Rengine
 					heightOffset += tallestGlyph;
 				}
 
-				for (int x = 0; x < glyph->bitmap.width; x++)
+				for (unsigned int x = 0; x < glyph->bitmap.width; x++)
 				{
-					for (int y = 0; y < glyph->bitmap.rows; y++)
+					for (unsigned int y = 0; y < glyph->bitmap.rows; y++)
 					{
 						int index = y * glyph->bitmap.width + x;
 

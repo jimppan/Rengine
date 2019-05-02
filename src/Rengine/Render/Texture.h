@@ -26,9 +26,6 @@ namespace Rengine
 		//GL_NEAREST - Point
 		//GL_LINEAR - Blur
 		void                      SetFilterMode(const FilterMode& mode);
-		
-
-		
 
 		void                      Bind(unsigned int slot = 0);
 		static void               Unbind();

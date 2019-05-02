@@ -5,7 +5,7 @@
 
 #include <Rengine/Application.h>
 
-extern Rengine::Application* Rengine::CreateApplication();
+extern Rengine::Application* Rengine::CreateApplication(int argc, char** argv);
 
 int main(int argc, char** argv)
 {
@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 	RENGINE_CORE_INFO("Initialized Log.");
 	RENGINE_INFO("Initialized Log.");
 
-	auto application = Rengine::CreateApplication();
+	auto application = Rengine::CreateApplication(argc, argv);
 	application->Run();
 	delete application;
 

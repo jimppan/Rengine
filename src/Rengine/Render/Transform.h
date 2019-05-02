@@ -17,21 +17,17 @@ namespace Rengine
 
 		}
 
-		virtual void Update() {}
-
-
-		inline virtual void Translate(glm::vec3 translation)
+		inline virtual void Translate(const Vector3f& translation)
 		{
 			m_vecPosition += translation;
-
 		}
 
-		inline virtual void Rotate(glm::vec3 rotation)
+		inline virtual void Rotate(const Vector3f& rotation)
 		{
 			m_vecRotation += rotation;
 		}
 
-		inline virtual void Scale(glm::vec3 scale)
+		inline virtual void Scale(const Vector3f& scale)
 		{
 			m_vecScale += scale;
 		}
