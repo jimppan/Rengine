@@ -31,7 +31,7 @@ namespace Rengine
 
 			RENGINE_CORE_INFO("Initialized FreeType!");
 			// Developer font
-			s_DeveloperFont = Font(FONT_DEVELOPER, 0, 16);
+			s_DeveloperFont = Font(RENGINE_FONT_DEVELOPER, 0, 16);
 			s_DeveloperFont.LoadCharacters(64);
 
 			RENGINE_CORE_INFO("Loaded developer face.");

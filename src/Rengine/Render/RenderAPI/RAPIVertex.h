@@ -83,6 +83,37 @@ namespace Rengine
 			}
 		};
 
+		struct VertexPoint
+		{
+			Position position;	// 3 * 4 bytes (floats) = 12 bytes
+			ColorRGBA8 color;	// 4 * 1 bytes (chars)	= 4 bytes
+
+			VertexPoint() :
+				position({ 0.0f, 0.0f, 0.0f }),
+				color({ 0, 0, 0, 0 })
+			{
+
+			}
+
+			VertexPoint(Position position,
+				ColorRGBA8 color) :
+				position(position),
+				color(color)
+			{
+
+			}
+
+			inline void SetPos(const Vector3f& position)
+			{
+				this->position = position;
+			}
+
+			inline void SetColor(ColorRGBA8 color)
+			{
+				this->color = color;
+			}
+		};
+
 		struct VertexAttributeData
 		{
 		public:

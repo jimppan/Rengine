@@ -2,8 +2,8 @@
 #define RENGINE_FONT_H
 
 //#define FONT_DEVELOPER "../Rengine/res/fonts/arial.ttf"
-#define FONT_DEVELOPER "../Rengine/res/fonts/ProggyTiny.ttf"
-#define FONT_SHADER    "../Rengine/res/shaders/Font.shader"
+#define RENGINE_FONT_DEVELOPER "../Rengine/res/fonts/ProggyTiny.ttf"
+#define RENGINE_FONT_SHADER    "../Rengine/res/shaders/Font.shader"
 
 #include "ft2build.h"
 #include "freetype/freetype.h" // FT_FREETYPE_H
