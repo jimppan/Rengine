@@ -14,14 +14,6 @@ namespace Rengine
 {
 	namespace Font
 	{
-		/*struct character_t
-		{
-			Texture* texture;
-			Vector2i size;           // size of glyph
-			Vector2i bearing;        // offset from baseline to left/top of glyph
-			unsigned int advance;    // offset to advance to next glyph
-		};*/
-
 		struct character_t
 		{
 			Rect uv;
