@@ -17,7 +17,7 @@ namespace Rengine
 
 	TileMap::~TileMap()
 	{
-		ClearTiles();
+	
 	}
 
 	void TileMap::Apply()

@@ -15,15 +15,15 @@ namespace Rengine
 			Path();
 			Path(const FileSystem::path& path);
 
-			inline bool        HasParentPath()             { return m_Path.has_parent_path(); }
-			inline bool        HasRelativePath()           { return m_Path.has_relative_path(); }
-			inline bool        HasExtension()              { return m_Path.has_extension(); }
-			inline bool        HasFileName()               { return m_Path.has_filename(); }
-			inline bool        HasRootDirectory()          { return m_Path.has_root_directory(); }
-			inline bool        HasRootName()               { return m_Path.has_root_name(); }
-			inline bool        HasRootPath()               { return m_Path.has_root_path(); }
-			inline bool        HasStem()                   { return m_Path.has_stem(); }
-
+			inline bool        HasParentPath() const       { return m_Path.has_parent_path(); }
+			inline bool        HasRelativePath() const     { return m_Path.has_relative_path(); }
+			inline bool        HasExtension() const        { return m_Path.has_extension(); }
+			inline bool        HasFileName() const         { return m_Path.has_filename(); }
+			inline bool        HasRootDirectory() const    { return m_Path.has_root_directory(); }
+			inline bool        HasRootName() const         { return m_Path.has_root_name(); }
+			inline bool        HasRootPath() const         { return m_Path.has_root_path(); }
+			inline bool        HasStem() const             { return m_Path.has_stem(); }
+			
 			inline bool        IsRelative() const          { return m_Path.is_relative(); }
 			inline bool        IsAbsolute() const          { return m_Path.is_absolute(); }
 
@@ -31,7 +31,9 @@ namespace Rengine
 			inline Path        RootPath() const            { return m_Path.root_path(); }
 
 			inline Path        RootDirectory() const       { return m_Path.root_directory(); }
-			inline std::string Name() const                { return m_Path.string(); }
+			inline std::string FullPath() const            { return m_Path.string(); }
+			inline std::string Extension() const           { return m_Path.extension().string(); }
+			inline std::string FileName() const            { return m_Path.filename().string(); }
 
 			FileSystem::path m_Path;
 		};

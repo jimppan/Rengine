@@ -44,7 +44,10 @@ namespace Rengine
 
 		bool Directory::Iterate()
 		{
-			if (!m_bIteratedBegin && m_Iterator == FileSystem::begin(m_Iterator) && m_Iterator != FileSystem::end(m_Iterator))
+			if (m_Iterator == FileSystem::end(m_Iterator))
+				return false;
+
+			if (!m_bIteratedBegin && m_Iterator == FileSystem::begin(m_Iterator))
 			{
 				m_bIteratedBegin = true;
 				return true;

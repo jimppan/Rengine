@@ -38,15 +38,15 @@ namespace Rengine
 
 #if defined RENGINE_DEBUG || defined RENGINE_RELEASE
 
-#define RENGINE_CORE_TRACE(...) if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetCoreLogger()->trace(__VA_ARGS__)
-#define RENGINE_CORE_INFO(...)  if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetCoreLogger()->info(__VA_ARGS__)   
-#define RENGINE_CORE_WARN(...)  if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetCoreLogger()->warn(__VA_ARGS__)  
-#define RENGINE_CORE_ERROR(...) if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetCoreLogger()->error(__VA_ARGS__)  
-
-#define RENGINE_TRACE(...)      if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetClientLogger()->trace(__VA_ARGS__)
-#define RENGINE_INFO(...)       if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetClientLogger()->info(__VA_ARGS__)
-#define RENGINE_WARN(...)       if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetClientLogger()->warn(__VA_ARGS__)
-#define RENGINE_ERROR(...)      if(::Rengine::Log::IsInitialized()) ::Rengine::Log::GetClientLogger()->error(__VA_ARGS__)
+#define RENGINE_CORE_TRACE(...) ::Rengine::Log::GetCoreLogger()->trace(__VA_ARGS__)
+#define RENGINE_CORE_INFO(...)  ::Rengine::Log::GetCoreLogger()->info(__VA_ARGS__)   
+#define RENGINE_CORE_WARN(...)  ::Rengine::Log::GetCoreLogger()->warn(__VA_ARGS__)  
+#define RENGINE_CORE_ERROR(...) ::Rengine::Log::GetCoreLogger()->error(__VA_ARGS__)  
+							    
+#define RENGINE_TRACE(...)      ::Rengine::Log::GetClientLogger()->trace(__VA_ARGS__)
+#define RENGINE_INFO(...)       ::Rengine::Log::GetClientLogger()->info(__VA_ARGS__)
+#define RENGINE_WARN(...)       ::Rengine::Log::GetClientLogger()->warn(__VA_ARGS__)
+#define RENGINE_ERROR(...)      ::Rengine::Log::GetClientLogger()->error(__VA_ARGS__)
 
 #define RENGINE_LOG_INIT() ::Rengine::Log::Init()
 #else

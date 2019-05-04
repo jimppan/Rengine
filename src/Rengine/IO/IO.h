@@ -49,7 +49,7 @@ namespace Rengine
 			return true;
 		}
 
-		static inline Path            GetApplicationPath(const std::string& path) { return FileSystem::current_path(); }
+		static inline Path            GetApplicationPath()                        { return Path(FileSystem::current_path()); }
 
 		static inline bool            IsDirectory(const std::string& path)        { return FileSystem::is_directory(path); }
 		static inline bool            IsRegularFile(const std::string& path)      { return FileSystem::is_regular_file(path); }
