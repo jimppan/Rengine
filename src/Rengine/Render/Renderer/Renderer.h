@@ -28,6 +28,41 @@ namespace Rengine
 		float depth = 0.0f;
 	};
 
+	struct QuadGlyph
+	{
+		QuadGlyph() {}
+		QuadGlyph(const Rect& _rect, const ColorRGBA8& _color) :
+			bottomLeft({ _rect.x, _rect.y, 0.0f }, _color),
+			bottomRight({ _rect.x + _rect.z, _rect.y, 0.0f }, _color),
+			topRight({ _rect.x + _rect.z, _rect.y + _rect.w, 0.0f }, _color),
+			topLeft({ _rect.x, _rect.y + _rect.w, 0.0f }, _color)
+		{
+
+		}
+
+		RAPI::VertexPoint bottomLeft;
+		RAPI::VertexPoint bottomRight;
+		RAPI::VertexPoint topRight;
+		RAPI::VertexPoint topLeft;
+	};
+
+	struct TriangleGlyph
+	{
+		TriangleGlyph() {}
+		TriangleGlyph(const Vector2f point1, const Vector2f point2, const Vector2f point3, const ColorRGBA8& _color) :
+			point1({ point1.x, point1.y, 0.0f }, _color),
+			point2({ point2.x, point2.y, 0.0f }, _color),
+			point3({ point3.x, point3.y, 0.0f }, _color)
+		{
+
+		}
+
+		RAPI::VertexPoint point1;
+		RAPI::VertexPoint point2;
+		RAPI::VertexPoint point3;
+	};
+
+
 	struct SpriteGlyph : public BaseGlyph
 	{
 		SpriteGlyph() {}

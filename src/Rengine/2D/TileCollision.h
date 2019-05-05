@@ -3,15 +3,18 @@
 
 namespace Rengine
 {
-	enum class TileCollisionType : unsigned char
+	enum TileCollisionType : unsigned char
 	{
 		CLEAR = 0,            // Entire tile is traversable              
-		BLOCKED,              // Entire tile is blocked
+		RECT,                 // Uses m_CollisionRect for collision
 
-		HALF_LEFT,            // Left half is blocked
-		HALF_RIGHT,           // Right half is blocked
-		HALF_TOP,             // Top half is blocked
-		HALF_BOTTOM,          // Bottom half is blocked
+		LEFT,                 // Left side is blocked from current tile
+		RIGHT,                // Right side is blocked from current tile
+		TOP,                  // Top is blocked from current tile
+		BOTTOM,               // Bottom is blocked from current tile
+
+		DIAGONAL_BL_TR,       // Diagonal bottom left to top right is blocked (Can traverse on both sides of the tile)
+		DIAGONAL_BR_TL,       // Diagonal bottom right to top left is blocked (Can traverse on both sides of the tile)
 
 		DIAGONAL_BL,          // Bottom left is blocked
 		DIAGONAL_BR,          // Bottom right is blocked
@@ -23,29 +26,24 @@ namespace Rengine
 		TIP_TR,				  // Top left tip is blocked
 		TIP_TL,				  // Top right tip is blocked
 
-		LEFT,                 // Left side is blocked from current tile
-		RIGHT,                // Right side is blocked from current tile
-		TOP,                  // Top is blocked from current tile
-		BOTTOM,               // Bottom is blocked from current tile
-
-		MIDDLE_H,             // Middle is blocked horizontally               (Can traverse on both sides of the tile)
-		MIDDLE_V,             // Middle is blocked vertically                 (Can traverse on both sides of the tile)
-
-		DIAGONAL_BL_TR,       // Diagonal bottom left to top right is blocked (Can traverse on both sides of the tile)
-		DIAGONAL_BR_TL        // Diagonal bottom right to top left is blocked (Can traverse on both sides of the tile)
+		MAX
 	};
 
 	class TileCollision
 	{
 	public:
-		TileCollision(const TileCollisionType& collisionType = TileCollisionType::CLEAR);
+		TileCollision(TileCollisionType collisionType = TileCollisionType::CLEAR);
 		~TileCollision();
 
-		inline TileCollisionType  GetCollisionType() const                        { return m_CollisionType; }
-		inline void               SetCollisionType(const TileCollisionType& type) { m_CollisionType = type; }
+		inline unsigned char      GetCollisionType() const                        { return m_CollisionType; }
+		void                      SetCollisionType(unsigned char type);
+
+		inline Rect               GetCollisionRect() const { return m_CollisionRect; }
+		inline void               SetCollisionRect(const Rect& rect) { m_CollisionRect = rect; }
 
 	private:
-		TileCollisionType m_CollisionType = TileCollisionType::CLEAR;
+		unsigned char m_CollisionType = TileCollisionType::CLEAR;
+		Rect m_CollisionRect = { 4.0f, 4.0f, 8.0f, 8.0f };
 	};
 }
 

@@ -3,7 +3,7 @@
 
 namespace Rengine
 {
-	TileCollision::TileCollision(const TileCollisionType& collisionType):
+	TileCollision::TileCollision(TileCollisionType collisionType):
 		m_CollisionType(collisionType)
 	{
 	}
@@ -11,6 +11,11 @@ namespace Rengine
 
 	TileCollision::~TileCollision()
 	{
+	}
+
+	void TileCollision::SetCollisionType(unsigned char type)
+	{
+		m_CollisionType = type >= TileCollisionType::MAX ? TileCollisionType::CLEAR : type;
 	}
 }
 
